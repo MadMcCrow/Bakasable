@@ -13,14 +13,16 @@ generic = { version, platform, hash } : stdenv.mkDerivation {
     url = "https://github.com/godotengine/godot/releases/download/${version}/Godot_v${version}_${platform}.zip";
     inherit hash;
     };
+
   installPhase = ''
   runHook preInstall
   install -m755 -D  ./Godot_v${version}_${platform} $out/bin/godot
   runHook postInstall
   '';
-   meta = pkgs.godot_4.meta // {
+   meta = {
+      homepage = pkgs.godot_4.meta.homepage;
       platforms = pkgs.lib.platforms.all;
-      meta.mainProgram = "godot";
+      mainProgram = "godot";
     };
 };
 
