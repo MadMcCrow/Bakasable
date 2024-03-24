@@ -3,7 +3,7 @@
 {pkgs, ...} :
 let
 # python version to use
-python = pkgs.python313; 
+python = pkgs.python311; 
 
 # submodules
 modules = [ ./dvdrip.nix ];
