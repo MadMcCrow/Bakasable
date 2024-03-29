@@ -1,6 +1,6 @@
 # dvdrip
 # python tool for reading dvds
-{ pkgs, python }  :
+{ pkgs, python, ... }  :
 pkgs.stdenvNoCC.mkDerivation {
   
   # dvdrip is a cool script
