@@ -1,5 +1,5 @@
 # shell environment to develop
-{ pkgs, ... }:
+{ pkgs, ... } @args :
 let
 
   modules = [./godot ./python];
@@ -11,5 +11,5 @@ in
 pkgs.mkShell { 
   # let's have everything to work
   buildInputs = rust ++ (pkgs.lib.lists.flatten 
-  (map (x : (import x {inherit pkgs;}).packages) modules));
+  (map (x : (import x args).packages) modules));
 }
