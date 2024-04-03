@@ -1,8 +1,22 @@
 # pyupscaler
 # python tool for upscaling stuff
-{ pkgs, python, flake, ... }  :
+{ pkgs, python, flake, pycnix, ... }  :
 let
+
+# TODO:
+realesrgan = python.pkgs.buildPythonPackage {
+  src = https://github.com/ai-forever/Real-ESRGAN
+};
+
+# TODO :
+pyffmpeg =  python.pkgs.buildPythonPackage {
+  src = fetchpypi { 
+  };
+};
+
+
 in
+
 pkgs.stdenvNoCC.mkDerivation {
   name = "pyupscaler";
   version = "0.0";

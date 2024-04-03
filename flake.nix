@@ -9,9 +9,11 @@
   inputs = {
     # nixpkgs :
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    pycnix.url  = "github:MadMcCrow/pycnix";
+    pycnix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, ... }:
+  outputs = { self, nixpkgs, pycnix, ... }:
     let
       # multiplatform support
       # only tested on x86_64 linux
@@ -25,14 +27,15 @@
 
       # import functions:
       imp = module: system: (import module {
+        inherit pycnix;
+        flake = self;
         pkgs = import nixpkgs { inherit system; };
+        lib = nixpkgs.lib;
       });
 
     in
     {
-      packages = forAllSystems (system:
-        imp ./nix/packages.nix system
-      );
+      packages = forAllSystems (system: imp ./nix/packages.nix system);
 
       # checks for remote compilation
       # TODO : setup checks
