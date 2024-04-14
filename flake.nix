@@ -1,15 +1,15 @@
 # flake.nix
 {
   description = ''
-  BAKA-SABLE is a pun on bac-a-sable (sandbox in french) and Baka (fool in japanese)
-  It's a collection of WIP stuff I make in nix and what not
+    BAKA-SABLE is a pun on bac-a-sable (sandbox in french) and Baka (fool in japanese)
+    It's a collection of WIP stuff I make in nix and what not
   '';
 
   # flake inputs :
   inputs = {
     # nixpkgs :
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    pycnix.url  = "github:MadMcCrow/pycnix";
+    nixpkgs.url = "github:nixos/nixpkgs/release-23.11";
+    pycnix.url = "github:MadMcCrow/pycnix";
     pycnix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -26,16 +26,16 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems f;
 
       # import functions:
-      imp = module: system: (import module {
-        inherit pycnix;
-        flake = self;
-        pkgs = import nixpkgs { inherit system; };
-        lib = nixpkgs.lib;
-      });
+      imp = module: system:
+        (import module {
+          inherit pycnix;
+          flake = self;
+          pkgs = import nixpkgs { inherit system; };
+          lib = nixpkgs.lib;
+        });
 
-    in
-    {
-      packages = forAllSystems (system: imp ./nix/packages.nix system);
+    in {
+      packages = forAllSystems (system: imp ./packages.nix system);
 
       # checks for remote compilation
       # TODO : setup checks
@@ -43,8 +43,7 @@
 
       # shell for development
       # TODO : macOS development
-      devShells = forAllSystems (system: {
-        default = imp ./nix/shell.nix system;
-      });
+      devShells =
+        forAllSystems (system: { default = imp ./nix/shell.nix system; });
     };
 }
