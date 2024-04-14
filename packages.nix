@@ -1,13 +1,18 @@
-# shell environment to develop
+# list of packages in bakasable
 { pkgs, lib, flake, pycnix, ... }@args:
 let
 
   # submodules 
-  modules = [ ./dvdrip ./cdripper ./python ./godot ];
+  modules = [
+    ./cdripper 
+    ./dvdrip 
+    # ./python 
+    # ./godot
+    ];
 
-  packages = [ python ] ++ (map (x:
+  packages = lib.lists.flatten (map (x:
     let mod = import x args;
-    in if mod ? "packages" then mod.packages else [ mod ]) modules);
+    in if builtins.hasAttr "packages" mod then mod.packages else [ mod ]) modules);
 
 in builtins.listToAttrs (map (x: {
   name = "${pkgs.lib.getName x}";

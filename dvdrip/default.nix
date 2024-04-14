@@ -1,8 +1,8 @@
 # dvdrip
 # python tool for reading dvds
-{ pkgs, python, pycnix, ... }:
+{ pkgs, pycnix, ... }:
 pycnix.lib."${pkgs.system}".mkCythonBin {
-  inherit python;
+  python = pkgs.python311;
   name = "dvdrip";
   main = "dvdrip.py";
   # no version defined
@@ -19,7 +19,7 @@ pycnix.lib."${pkgs.system}".mkCythonBin {
     cp -r $src/* ./
   '';
 
-  buildInputs = [ pkgs.handbrake python python.pkgs.pprintpp ];
+  buildInputs = [ pkgs.handbrake pkgs.python311.pkgs.pprintpp ];
   runtimeDependencies = [ pkgs.handbrake ];
 
   meta = with pkgs.lib; {
