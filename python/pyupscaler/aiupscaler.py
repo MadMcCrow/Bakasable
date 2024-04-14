@@ -9,20 +9,6 @@
 import torch
 from PIL import Image
 
-HF_MODELS = {
-    2: dict(
-        repo_id='sberbank-ai/Real-ESRGAN',
-        filename='RealESRGAN_x2.pth',
-    ),
-    4: dict(
-        repo_id='sberbank-ai/Real-ESRGAN',
-        filename='RealESRGAN_x4.pth',
-    ),
-    8: dict(
-        repo_id='sberbank-ai/Real-ESRGAN',
-        filename='RealESRGAN_x8.pth',
-    ),
-}
 
 # enum for thi
 class MODELS:
