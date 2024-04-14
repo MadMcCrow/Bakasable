@@ -18,6 +18,9 @@ pycnix.lib."${pkgs.system}".mkCythonBin {
   unpackPhase = ''
     cp -r $src/* ./
   '';
+  patchPhase = ''
+   substituteInPlace ./dvdrip.py \
+   --replace "HANDBRAKE = 'HandBrakeCLI'" "HANDBRAKE = '${pkgs.handbrake}/bin/HandBrakeCLI'"'';
 
   buildInputs = [ pkgs.handbrake pkgs.python311.pkgs.pprintpp ];
   runtimeDependencies = [ pkgs.handbrake ];
