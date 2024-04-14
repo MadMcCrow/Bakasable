@@ -44,6 +44,6 @@
       # shell for development
       # TODO : macOS development
       devShells =
-        forAllSystems (system: { default = imp ./nix/shell.nix system; });
+        forAllSystems (system: { default = imp ./shell.nix system; });
     };
 }
