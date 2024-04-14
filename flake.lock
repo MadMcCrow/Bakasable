@@ -23,11 +23,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1712098254,
-        "narHash": "sha256-fJEq1s6vpCd4a/zwXIwIMIxewhv+Mju2X4yoTfh4M+8=",
+        "lastModified": 1713097610,
+        "narHash": "sha256-iZ8zZPQd9hkLpNA02tDNWbeTjXoRk4iV8nmz12FqnNA=",
         "owner": "MadMcCrow",
         "repo": "pycnix",
-        "rev": "bf2c9789aba28f6f7d92414422b5bfd4d9b6b06d",
+        "rev": "b863ab86c3a13626694856319a73203d12fc2d55",
         "type": "github"
       },
       "original": {
