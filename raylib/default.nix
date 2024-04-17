@@ -1,30 +1,19 @@
 # Raylib 
 # Gamedev Framework
-{pkgs, tests} : 
+{pkgs, ...} : 
 let
   # raylib
-  raylib-c = import ./raylib-c.nix pkgs;
-  raylib-d = import ./raylib-d.nix {inherit pkgs raylib-c;};
-
-  demo-c = raylib-c.mkRaylibCGame rec {
-              name = "demo-raylib-c";
-              src = "${tests}/raylib-c";
-              buildInputs = [raylib-c.raylib];
-              buildPhase = ''
-                $CC main.c -o out.bin -lraylib
-              '';
-              installPhase = ''
-                mkdir -p $out/bin
-                cp -R ./out.bin $out/bin/${name}
-              '';
-            };
-
-    # raylib-d test
-    demo-d = raylib-d.mkRaylibDGame {
-      name = "demo-raylib-d";
-      src = "${tests}/raylib-d";
-    };
+  raylib = pkgs.callPackage ./generic.nix {};
+  demo = pkgs.runCommandCC "raylib-demo"
+    rec {
+      buildInputs = [raylib];
+      meta.mainProgram = "demo";
+    } ''
+    mkdir -p "$out/bin"
+    $CC -std=c11 -Wall -pedantic -lraylib ${./demo.c} \
+    -o "$out/bin/demo";
+    '';
 in 
 {
-  packages = [raylib-c.raylib demo-d] ++ raylib-d.packages;
+ packages = [demo];
 }

@@ -8,6 +8,7 @@ let
     ./dvdrip 
     # ./python 
     # ./godot
+    ./raylib
     ];
 
   packages = lib.lists.flatten (map (x:
